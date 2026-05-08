@@ -242,3 +242,15 @@ function asignarCredito(){
         document.getElementById("btnAsignarCredito").disabled = true;
     }
 }
+
+function buscarCreditos(cedula){
+    let creditosCliente = [];
+
+    for(let i = 0; i < creditos.length; i++){
+        if(creditos[i].cedula == cedula){
+            creditosCliente.push(creditos[i]);
+        }
+    }
+
+    return creditosCliente;
+}
