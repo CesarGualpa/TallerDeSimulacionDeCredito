@@ -254,3 +254,24 @@ function buscarCreditos(cedula){
 
     return creditosCliente;
 }
+
+function pintarCreditos(listaCreditos){
+    let tabla = document.getElementById("tablaCreditos");
+    let contenido = "";
+
+    for(let i = 0; i < listaCreditos.length; i++){
+        let credito = listaCreditos[i];
+
+        contenido += "<tr>";
+        contenido += "<td>" + credito.cedula + "</td>";
+        contenido += "<td>" + credito.nombre + "</td>";
+        contenido += "<td>" + credito.apellido + "</td>";
+        contenido += "<td>" + credito.monto + "</td>";
+        contenido += "<td>" + credito.tasa + "%</td>";
+        contenido += "<td>" + credito.plazo + "</td>";
+        contenido += "<td>" + credito.cuota.toFixed(2) + "</td>";
+        contenido += "</tr>";
+    }
+
+    tabla.innerHTML = contenido;
+}
