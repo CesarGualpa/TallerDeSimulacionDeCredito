@@ -34,3 +34,16 @@ function mostrarSeccion(id){
 
     document.getElementById(id).classList.add("activa");
 }
+
+function guardarTasa(){
+    let tasa;
+
+    tasa = recuperarFloat("tasaInteres");
+
+    if(tasa >= 10 && tasa <= 20){
+        tasaInteres = tasa;
+        mostrarTexto("mensajeTasa", "Tasa configurada correctamente: " + tasaInteres + "%");
+    }else{
+        mostrarTexto("mensajeTasa", "La tasa debe estar entre 10% y 20%");
+    }
+}
