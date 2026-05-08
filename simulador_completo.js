@@ -11,3 +11,13 @@
 
   
 //Para recuperar o mostrar información usar los métodos de la clase utilitarios, puede agregar métodos adicionales en utilitarios
+
+function mostrarParametros(){
+    document.getElementById("parametros").classList.add("activa");
+    document.getElementById("clientes").classList.remove("activa");
+}
+
+function mostrarClientes(){
+    document.getElementById("clientes").classList.add("activa");
+    document.getElementById("parametros").classList.remove("activa");
+}
