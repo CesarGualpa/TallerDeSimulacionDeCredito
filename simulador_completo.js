@@ -194,26 +194,30 @@ function calcularCredito(){
     plazoCalculado = plazo;
 
     if(cuotaMensual <= capacidadPago){
-        creditoAprobado = true;
+    creditoAprobado = true;
 
-        resultadoCredito.innerHTML = `
-            Capacidad de pago: ${capacidadPago.toFixed(2)}<br>
-            Total a pagar: ${totalPagar.toFixed(2)}<br>
-            Cuota mensual: ${cuotaMensual.toFixed(2)}<br>
-            RESULTADO: APROBADO
-        `;
+    resultadoCredito.className = "aprobado";
 
-        document.getElementById("btnSolicitarCredito").disabled = false;
-    }else{
-        creditoAprobado = false;
+    resultadoCredito.innerHTML = `
+        Capacidad de pago: ${capacidadPago.toFixed(2)}<br>
+        Total a pagar: ${totalPagar.toFixed(2)}<br>
+        Cuota mensual: ${cuotaMensual.toFixed(2)}<br>
+        RESULTADO: APROBADO
+    `;
 
-        resultadoCredito.innerHTML = `
-            Capacidad de pago: ${capacidadPago.toFixed(2)}<br>
-            Total a pagar: ${totalPagar.toFixed(2)}<br>
-            Cuota mensual: ${cuotaMensual.toFixed(2)}<br>
-            RESULTADO: RECHAZADO
-        `;
+    document.getElementById("btnSolicitarCredito").disabled = false;
+}else{
+    creditoAprobado = false;
 
-        document.getElementById("btnSolicitarCredito").disabled = true;
-    }
+    resultadoCredito.className = "rechazado";
+
+    resultadoCredito.innerHTML = `
+        Capacidad de pago: ${capacidadPago.toFixed(2)}<br>
+        Total a pagar: ${totalPagar.toFixed(2)}<br>
+        Cuota mensual: ${cuotaMensual.toFixed(2)}<br>
+        RESULTADO: RECHAZADO
+    `;
+
+    document.getElementById("btnSolicitarCredito").disabled = true;
+}
 }
