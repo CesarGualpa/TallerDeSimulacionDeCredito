@@ -205,7 +205,7 @@ function calcularCredito(){
         RESULTADO: APROBADO
     `;
 
-    document.getElementById("btnSolicitarCredito").disabled = false;
+    document.getElementById("btnAsignarCredito").disabled = false;
 }else{
     creditoAprobado = false;
 
@@ -218,6 +218,26 @@ function calcularCredito(){
         RESULTADO: RECHAZADO
     `;
 
-    document.getElementById("btnSolicitarCredito").disabled = true;
+    document.getElementById("btnAsignarCredito").disabled = true;
 }
+}
+
+function asignarCredito(){
+    if(creditoAprobado == true){
+        let credito = {
+            cedula: clienteSeleccionado.cedula,
+            nombre: clienteSeleccionado.nombre,
+            apellido: clienteSeleccionado.apellido,
+            monto: montoCalculado,
+            tasa: tasaInteres,
+            plazo: plazoCalculado,
+            cuota: cuotaCalculada
+        };
+
+        creditos.push(credito);
+
+        alert("Crédito asignado correctamente");
+
+        document.getElementById("btnAsignarCredito").disabled = true;
+    }
 }
