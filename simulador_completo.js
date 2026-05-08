@@ -275,3 +275,14 @@ function pintarCreditos(listaCreditos){
 
     tabla.innerHTML = contenido;
 }
+
+function buscarCreditosCliente(){
+    let cedula;
+    let creditosCliente;
+
+    cedula = recuperaraTexto("buscarCedulaListado");
+
+    creditosCliente = buscarCreditos(cedula);
+
+    pintarCreditos(creditosCliente);
+}
