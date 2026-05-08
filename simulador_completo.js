@@ -136,24 +136,84 @@ function limpiar(){
 function buscarClienteCredito(){
     let cedula;
     let cliente;
+    let datosClienteCredito;
 
     cedula = recuperaraTexto("buscarCedulaCredito");
 
     cliente = buscarCliente(cedula);
 
+    datosClienteCredito = document.getElementById("datosClienteCredito");
+
     if(cliente != null){
         clienteSeleccionado = cliente;
 
-        document.getElementById("datosClienteCredito").innerHTML =
-            "<p><strong>Cédula:</strong> " + cliente.cedula + "</p>" +
-            "<p><strong>Nombre:</strong> " + cliente.nombre + "</p>" +
-            "<p><strong>Apellido:</strong> " + cliente.apellido + "</p>" +
-            "<p><strong>Ingresos:</strong> " + cliente.ingresos + "</p>" +
-            "<p><strong>Egresos:</strong> " + cliente.egresos + "</p>";
+        datosClienteCredito.innerHTML = `
+            <h3>Datos del Cliente</h3>
+            <p><strong>Cédula:</strong> ${cliente.cedula}</p>
+            <p><strong>Nombre:</strong> ${cliente.nombre}</p>
+            <p><strong>Apellido:</strong> ${cliente.apellido}</p>
+            <p><strong>Ingresos:</strong> ${cliente.ingresos}</p>
+            <p><strong>Egresos:</strong> ${cliente.egresos}</p>
+        `;
     }else{
         clienteSeleccionado = null;
 
-        document.getElementById("datosClienteCredito").innerHTML =
-            "<p>Cliente no encontrado</p>";
+        datosClienteCredito.innerHTML = `
+            <p>Cliente no encontrado</p>
+        `;
+    }
+}
+
+function calcularCredito(){
+    let monto;
+    let plazo;
+    let capacidadPago;
+    let totalPagar;
+    let cuotaMensual;
+    let interes;
+    let resultadoCredito;
+
+    resultadoCredito = document.getElementById("resultadoCredito");
+
+    if(clienteSeleccionado == null){
+        resultadoCredito.innerHTML = "Primero debe buscar un cliente";
+        return;
+    }
+
+    monto = recuperarFloat("montoCredito");
+    plazo = recuperarInt("plazoCredito");
+
+    capacidadPago = clienteSeleccionado.ingresos - clienteSeleccionado.egresos;
+
+    interes = monto * tasaInteres / 100;
+    totalPagar = monto + interes;
+    cuotaMensual = totalPagar / plazo;
+
+    cuotaCalculada = cuotaMensual;
+    montoCalculado = monto;
+    plazoCalculado = plazo;
+
+    if(cuotaMensual <= capacidadPago){
+        creditoAprobado = true;
+
+        resultadoCredito.innerHTML = `
+            Capacidad de pago: ${capacidadPago.toFixed(2)}<br>
+            Total a pagar: ${totalPagar.toFixed(2)}<br>
+            Cuota mensual: ${cuotaMensual.toFixed(2)}<br>
+            RESULTADO: APROBADO
+        `;
+
+        document.getElementById("btnSolicitarCredito").disabled = false;
+    }else{
+        creditoAprobado = false;
+
+        resultadoCredito.innerHTML = `
+            Capacidad de pago: ${capacidadPago.toFixed(2)}<br>
+            Total a pagar: ${totalPagar.toFixed(2)}<br>
+            Cuota mensual: ${cuotaMensual.toFixed(2)}<br>
+            RESULTADO: RECHAZADO
+        `;
+
+        document.getElementById("btnSolicitarCredito").disabled = true;
     }
 }
