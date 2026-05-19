@@ -19,14 +19,20 @@
 </nav>
 
 <section id="parametros" class="activa">
-    <h2>Configurar Parámetros</h2>
+  <h2>Configurar Parámetros</h2>
 
   <label>Tasa de interés:</label>
   <input type="number" id="tasaInteres" min="10" max="20" value="15">
   <span>%</span>
 
-  <br>
-  <button onclick="guardarTasa()">Guardar tasa</button>
+  <br><br>
+
+  <label>Monto máximo:</label>
+  <input type="number" id="montoMaximo" value="5000">
+
+  <br><br>
+
+  <button onclick="guardarParametros()">Guardar parámetros</button>
 
   <p id="mensajeTasa"></p>
 </section>

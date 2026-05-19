@@ -1,13 +1,15 @@
 
-  let clientes = [];
-  let creditos = [];
+let clientes = [];
+let creditos = [];
 
-  let tasaInteres = 15;
-  let clienteSeleccionado = null;
-  let cuotaCalculada = 0;
-  let montoCalculado = 0;
-  let plazoCalculado = 0;
-  let creditoAprobado = false;
+let tasaInteres = 15;
+let montoMaximo = 5000;
+
+let clienteSeleccionado = null;
+let cuotaCalculada = 0;
+let montoCalculado = 0;
+let plazoCalculado = 0;
+let creditoAprobado = false;
 
   
 //Para recuperar o mostrar información usar los métodos de la clase utilitarios, puede agregar métodos adicionales en utilitarios
@@ -35,17 +37,27 @@ function mostrarSeccion(id){
     document.getElementById(id).classList.add("activa");
 }
 
-function guardarTasa(){
-    let tasa;
+function guardarParametros(){
+    let tasa = recuperarFloat("tasaInteres");
+    let maximo = recuperarFloat("montoMaximo");
 
-    tasa = recuperarFloat("tasaInteres");
-
-    if(tasa >= 10 && tasa <= 20){
-        tasaInteres = tasa;
-        mostrarTexto("mensajeTasa", "Tasa configurada correctamente: " + tasaInteres + "%");
-    }else{
+    if(tasa < 10 || tasa > 20){
         mostrarTexto("mensajeTasa", "La tasa debe estar entre 10% y 20%");
+        return;
     }
+
+    if(maximo <= 0){
+        mostrarTexto("mensajeTasa", "El monto máximo debe ser mayor a 0");
+        return;
+    }
+
+    tasaInteres = tasa;
+    montoMaximo = maximo;
+
+    mostrarTexto(
+        "mensajeTasa", 
+        "Parámetros guardados correctamente. Tasa: " + tasaInteres + "% - Monto máximo: " + montoMaximo
+    );
 }
 
 function guardarCliente(){
@@ -190,6 +202,18 @@ function calcularCredito(){
     monto = recuperarFloat("montoCredito");
     plazo = recuperarInt("plazoCredito");
 
+    if(monto > montoMaximo){
+        resultadoCredito.className = "rechazado";
+        resultadoCredito.innerHTML = "Error: el monto solicitado supera el monto máximo permitido de " + montoMaximo;
+
+        mostrarTextoEnCaja("montoCredito", "");
+
+        creditoAprobado = false;
+        document.getElementById("btnAsignarCredito").disabled = true;
+
+        return;
+    }
+
     capacidadPago = clienteSeleccionado.ingresos - clienteSeleccionado.egresos;
 
     interes = monto * tasaInteres / 100;
@@ -201,32 +225,32 @@ function calcularCredito(){
     plazoCalculado = plazo;
 
     if(cuotaMensual <= capacidadPago){
-    creditoAprobado = true;
+        creditoAprobado = true;
 
-    resultadoCredito.className = "aprobado";
+        resultadoCredito.className = "aprobado";
 
-    resultadoCredito.innerHTML = `
-        Capacidad de pago: ${capacidadPago.toFixed(2)}<br>
-        Total a pagar: ${totalPagar.toFixed(2)}<br>
-        Cuota mensual: ${cuotaMensual.toFixed(2)}<br>
-        RESULTADO: APROBADO
-    `;
+        resultadoCredito.innerHTML = `
+            Capacidad de pago: ${capacidadPago.toFixed(2)}<br>
+            Total a pagar: ${totalPagar.toFixed(2)}<br>
+            Cuota mensual: ${cuotaMensual.toFixed(2)}<br>
+            RESULTADO: APROBADO
+        `;
 
-    document.getElementById("btnAsignarCredito").disabled = false;
-}else{
-    creditoAprobado = false;
+        document.getElementById("btnAsignarCredito").disabled = false;
+    }else{
+        creditoAprobado = false;
 
-    resultadoCredito.className = "rechazado";
+        resultadoCredito.className = "rechazado";
 
-    resultadoCredito.innerHTML = `
-        Capacidad de pago: ${capacidadPago.toFixed(2)}<br>
-        Total a pagar: ${totalPagar.toFixed(2)}<br>
-        Cuota mensual: ${cuotaMensual.toFixed(2)}<br>
-        RESULTADO: RECHAZADO
-    `;
+        resultadoCredito.innerHTML = `
+            Capacidad de pago: ${capacidadPago.toFixed(2)}<br>
+            Total a pagar: ${totalPagar.toFixed(2)}<br>
+            Cuota mensual: ${cuotaMensual.toFixed(2)}<br>
+            RESULTADO: RECHAZADO
+        `;
 
-    document.getElementById("btnAsignarCredito").disabled = true;
-}
+        document.getElementById("btnAsignarCredito").disabled = true;
+    }
 }
 
 function asignarCredito(){
