@@ -52,6 +52,7 @@ function guardarCliente(){
     let cedula = recuperaraTexto("txtCedula");
     let nombre = recuperaraTexto("txtNombre");
     let apellido = recuperaraTexto("txtApellido");
+    let telefono = recuperaraTexto("txtTelefono");
     let ingresos = recuperarFloat("txtIngresos");
     let egresos = recuperarFloat("txtEgresos");
 
@@ -62,6 +63,7 @@ function guardarCliente(){
             cedula: cedula,
             nombre: nombre,
             apellido: apellido,
+            telefono: telefono,
             ingresos: ingresos,
             egresos: egresos
         };
@@ -70,6 +72,7 @@ function guardarCliente(){
     }else{
         clienteEncontrado.nombre = nombre;
         clienteEncontrado.apellido = apellido;
+        clienteEncontrado.telefono = telefono;
         clienteEncontrado.ingresos = ingresos;
         clienteEncontrado.egresos = egresos;
     }
@@ -89,6 +92,7 @@ function pintarClientes(){
         contenido += "<td>" + cliente.cedula + "</td>";
         contenido += "<td>" + cliente.nombre + "</td>";
         contenido += "<td>" + cliente.apellido + "</td>";
+        contenido += "<td>" + cliente.telefono + "</td>";
         contenido += "<td>" + cliente.ingresos + "</td>";
         contenido += "<td>" + cliente.egresos + "</td>";
         contenido += "<td>";
@@ -119,6 +123,7 @@ function seleccionarCliente(cedula){
         mostrarTextoEnCaja("txtCedula", cliente.cedula);
         mostrarTextoEnCaja("txtNombre", cliente.nombre);
         mostrarTextoEnCaja("txtApellido", cliente.apellido);
+        mostrarTextoEnCaja("txtTelefono", cliente.telefono);
         mostrarTextoEnCaja("txtIngresos", cliente.ingresos);
         mostrarTextoEnCaja("txtEgresos", cliente.egresos);
     }
@@ -128,6 +133,7 @@ function limpiar(){
     mostrarTextoEnCaja("txtCedula", "");
     mostrarTextoEnCaja("txtNombre", "");
     mostrarTextoEnCaja("txtApellido", "");
+    mostrarTextoEnCaja("txtTelefono", "");
     mostrarTextoEnCaja("txtIngresos", "");
     mostrarTextoEnCaja("txtEgresos", "");
 
