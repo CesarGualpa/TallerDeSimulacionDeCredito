@@ -97,19 +97,20 @@
   <input type="text" id="buscarCedulaListado" placeholder="Cédula">
   <button onclick="buscarCreditosCliente()">Buscar</button>
   <button onclick="pintarCreditos(creditos)">Ver todos</button>
+  <button onclick="mostrarCreditosVIP()">Créditos VIP</button>
 
   <table>
     <thead>
-  <tr>
-    <th>Cédula</th>
-    <th>Nombre</th>
-    <th>Apellido</th>
-    <th>Teléfono</th>
-    <th>Ingresos</th>
-    <th>Egresos</th>
-    <th>Acciones</th>
-  </tr>
-</thead>
+      <tr>
+        <th>Cédula</th>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Monto</th>
+        <th>Tasa</th>
+        <th>Plazo</th>
+        <th>Cuota</th>
+      </tr>
+    </thead>
 
     <tbody id="tablaCreditos"></tbody>
   </table>

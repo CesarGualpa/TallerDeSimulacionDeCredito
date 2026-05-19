@@ -316,3 +316,15 @@ function buscarCreditosCliente(){
 
     pintarCreditos(creditosCliente);
 }
+
+function mostrarCreditosVIP(){
+    let creditosVIP = [];
+
+    for(let i = 0; i < creditos.length; i++){
+        if(creditos[i].monto > 5000){
+            creditosVIP.push(creditos[i]);
+        }
+    }
+
+    pintarCreditos(creditosVIP);
+}
