@@ -29,6 +29,7 @@ function ocultarSecciones(){
     document.getElementById("clientes").classList.remove("activa");
     document.getElementById("credito").classList.remove("activa");
     document.getElementById("listaCreditos").classList.remove("activa");
+    document.getElementById("acercaDe").classList.remove("activa");
 }
 
 function mostrarSeccion(id){
